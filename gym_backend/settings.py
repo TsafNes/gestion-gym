@@ -104,3 +104,20 @@ REST_FRAMEWORK = {
 
 # CORS
 CORS_ALLOW_ALL_ORIGINS = True  # autorise les appels API depuis le frontend
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import django_heroku
+django_heroku.settings(locals())
