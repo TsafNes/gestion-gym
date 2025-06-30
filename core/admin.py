@@ -1,10 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser
-from .models import CustomUser, Client, Abonnement, RendezVous, Notification, Gestionnaire, specialiste
-# Register your models here.
-
-admin.site.register(CustomUser, UserAdmin)
+from .models import CustomUser, Client, Abonnement, RendezVous, Notification, Gestionnaire, Specialiste
 
 
 class CustomUserAdmin(UserAdmin):
@@ -18,39 +14,38 @@ class CustomUserAdmin(UserAdmin):
         (None, {"fields": ("role",)}),
     )
 
-admin.site.unregister(CustomUser)
 admin.site.register(CustomUser, CustomUserAdmin)
 
 
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
-    list_display = ("nom", "prenom", "telephone", "courriel", "nb_heures_restantes")
-    search_fields = ("nom", "prenom", "courriel")
+    list_display = ("nom", "prenom", "telephone", "email", "nb_heures_restantes")
+    search_fields = ("nom", "prenom", "email")
 
 
 @admin.register(Abonnement)
 class AbonnementAdmin(admin.ModelAdmin):
-    list_display = ("type", "duree", "date_debut", "date_fin")
-    list_filter = ("type",)
+    list_display = ("client", "type_abonnement", "duree", "date_debut", "date_fin")
+    list_filter = ("type_abonnement",)
 
 
 @admin.register(RendezVous)
 class RendezVousAdmin(admin.ModelAdmin):
-    list_display = ("client", "specialiste", "date_heure", "duree", "statut")
-    list_filter = ("statut", "date_heure")
+    list_display = ("client", "date", "objet", "statut")
+    list_filter = ("statut",)
 
 
 @admin.register(Notification)
 class NotificationAdmin(admin.ModelAdmin):
-    list_display = ("destinataire", "message", "date", "lu")
+    list_display = ("destinataire", "message", "date_envoi", "lu")
     list_filter = ("lu",)
 
 
 @admin.register(Gestionnaire)
 class GestionnaireAdmin(admin.ModelAdmin):
-    list_display = ("nom", "prenom", "identifiant")
+    list_display = ("user",)
 
 
-@admin.register(specialiste)
+@admin.register(Specialiste)
 class SpecialisteAdmin(admin.ModelAdmin):
-    list_display = ("nom", "prenom", "email", "telephone", "identifiant")
+    list_display = ("user", "specialite")
