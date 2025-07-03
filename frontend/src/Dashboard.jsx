@@ -1,4 +1,4 @@
-<img src="/logo.png" alt="Logo du gym" style={{ height: '60px', marginBottom: '1rem' }} />
+<img src="/logo.jpg" alt="Logo du gym" style={{ height: '60px', marginBottom: '1rem' }} />
 import './dashboard.css';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
