@@ -1,17 +1,22 @@
-import React from 'react';
-import ResourceList from './components/ResourceList';
+import { useEffect, useState } from 'react';
 
 function App() {
-  return (
-    <div className="App">
-      <h1>Portail de Gestion Gym</h1>
+  const [clients, setClients] = useState([]);
 
-      <ResourceList endpoint="clients" label="clients" />
-      <ResourceList endpoint="gestionnaires" label="gestionnaires" />
-      <ResourceList endpoint="specialistes" label="spécialistes" />
-      <ResourceList endpoint="abonnements" label="abonnements" />
-      <ResourceList endpoint="rendezvous" label="rendez-vous" />
-      <ResourceList endpoint="notifications" label="notifications" />
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/clients/`)
+      .then(res => res.json())
+      .then(data => setClients(data));
+  }, []);
+
+  return (
+    <div>
+      <h1>Liste des clients</h1>
+      <ul>
+        {clients.map(client => (
+          <li key={client.id}>{client.nom} - {client.email}</li>
+        ))}
+      </ul>
     </div>
   );
 }
