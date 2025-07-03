@@ -18,6 +18,20 @@ export function ClientList({ refreshTrigger }) {
     }
   };
 
+  const handleDelete = async (id) => {
+    if (!window.confirm('Confirmer la suppression de ce client ?')) return;
+    try {
+      await axios.delete(`https://gestion-gym.onrender.com/api/clients/${id}/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      fetchClients(); // Refresh after deletion
+    } catch (error) {
+      console.error('Erreur lors de la suppression du client :', error);
+    }
+  };
+
   useEffect(() => {
     fetchClients();
   }, [refreshTrigger]);
@@ -34,6 +48,7 @@ export function ClientList({ refreshTrigger }) {
               <th>Nom</th>
               <th>Prénom</th>
               <th>Email</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -42,6 +57,18 @@ export function ClientList({ refreshTrigger }) {
                 <td>{client.nom}</td>
                 <td>{client.prenom}</td>
                 <td>{client.email}</td>
+                <td>
+                  <button className="icon-button edit" title="Modifier">
+                    ✏️
+                  </button>
+                  <button
+                    className="icon-button delete"
+                    onClick={() => handleDelete(client.id)}
+                    title="Supprimer"
+                  >
+                    🗑
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
