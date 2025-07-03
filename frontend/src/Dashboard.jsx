@@ -16,10 +16,12 @@ function Dashboard() {
   const [clients, setClients] = useState([]);
   const [notifications, setNotifications] = useState([]);
   const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
+
+  const token = localStorage.getItem('access_token');
 
   useEffect(() => {
     const fetchUser = async () => {
-      const token = localStorage.getItem('access_token');
       if (!token) {
         navigate('/');
         return;
@@ -41,18 +43,16 @@ function Dashboard() {
     };
 
     fetchUser();
-  }, [navigate]);
+  }, [navigate, token]);
 
   const fetchRendezVous = async () => {
-    const token = localStorage.getItem('access_token');
-    if (!token) return;
-
     try {
       const response = await axios.get('https://gestion-gym.onrender.com/api/rendezvous/', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
+      console.log("RendezVous reçus :", response.data);
       if (user?.role === 'specialiste') {
         const filtered = response.data.filter(rdv => rdv.specialiste === user.id);
         setRendezVous(filtered);
@@ -61,47 +61,48 @@ function Dashboard() {
       }
     } catch (error) {
       console.error("Erreur lors du chargement des rendez-vous :", error);
+      setError('❌ Erreur lors du chargement des rendez-vous.');
     }
   };
 
   const fetchClients = async () => {
-    const token = localStorage.getItem('access_token');
-    if (!token) return;
-
     try {
       const response = await axios.get('https://gestion-gym.onrender.com/api/clients/', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
+      console.log("Clients reçus :", response.data);
       setClients(response.data);
     } catch (error) {
       console.error("Erreur lors du chargement des clients :", error);
+      setError('❌ Erreur lors du chargement des clients.');
     }
   };
 
   const fetchNotifications = async () => {
-    const token = localStorage.getItem('access_token');
-    if (!token) return;
-
     try {
       const response = await axios.get('https://gestion-gym.onrender.com/api/notifications/', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
+      console.log("Notifications reçues :", response.data);
       setNotifications(response.data);
     } catch (error) {
       console.error("Erreur lors du chargement des notifications :", error);
+      setError('❌ Erreur lors du chargement des notifications.');
     }
   };
 
+  const fetchAllData = () => {
+    fetchRendezVous();
+    fetchNotifications();
+    fetchClients();
+  };
+
   useEffect(() => {
-    if (user) {
-      fetchRendezVous();
-      fetchNotifications();
-      fetchClients();
-    }
+    if (user) fetchAllData();
   }, [user]);
 
   const handleRdvSuccess = () => {
@@ -130,6 +131,7 @@ function Dashboard() {
       <p>Vous êtes connecté en tant que <strong>{user?.role}</strong>.</p>
 
       {message && <p style={{ color: 'green' }}>{message}</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
 
       {user?.role === 'gestionnaire' && (
         <>
