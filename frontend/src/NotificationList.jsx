@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import './Dashboard.css'; // Assure-toi que ce fichier est bien importé
 
 function NotificationList() {
   const [notifications, setNotifications] = useState([]);
@@ -23,18 +24,34 @@ function NotificationList() {
   }, []);
 
   return (
-    <div className="notification-list">
+    <section className="section-card">
       <h2>🔔 Notifications reçues</h2>
-      <ul>
-        {notifications.map(notif => (
-          <li key={notif.id}>
-            <strong>{notif.destinataire?.prenom} {notif.destinataire?.nom}</strong> - {notif.message} <br />
-            <small>Envoyé le : {new Date(notif.date_envoi).toLocaleString()}</small>
-            {notif.lu ? ' ✅' : ' 📭'}
-          </li>
-        ))}
-      </ul>
-    </div>
+
+      {notifications.length === 0 ? (
+        <p>Aucune notification disponible.</p>
+      ) : (
+        <table className="table-style">
+          <thead>
+            <tr>
+              <th>Destinataire</th>
+              <th>Message</th>
+              <th>Date d’envoi</th>
+              <th>Statut</th>
+            </tr>
+          </thead>
+          <tbody>
+            {notifications.map(notif => (
+              <tr key={notif.id}>
+                <td>{notif.destinataire?.prenom} {notif.destinataire?.nom}</td>
+                <td>{notif.message}</td>
+                <td>{new Date(notif.date_envoi).toLocaleString()}</td>
+                <td>{notif.lu ? '✅ Lu' : '📭 Non lu'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </section>
   );
 }
 
