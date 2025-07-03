@@ -9,7 +9,7 @@ export function ClientList({ refreshTrigger }) {
     try {
       const response = await axios.get('https://gestion-gym.onrender.com/api/clients/', {
         headers: {
-          Authorization: Bearer ${token},
+          Authorization: `Bearer ${token}`,
         },
       });
       setClients(response.data);
