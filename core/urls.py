@@ -1,15 +1,9 @@
-# core/urls.py
-from rest_framework.routers import DefaultRouter
 from django.urls import path, include
-from .views import ClientViewSet, GestionnaireViewSet, SpecialisteViewSet, AbonnementViewSet, NotificationViewSet, RendezVousViewSet
+from rest_framework.routers import DefaultRouter
+from .views import ClientViewSet  # ajoute les autres ViewSets plus tard
 
 router = DefaultRouter()
-router.register('clients', ClientViewSet)
-router.register('gestionnaires', GestionnaireViewSet)
-router.register('specialistes', SpecialisteViewSet)
-router.register('abonnements', AbonnementViewSet)
-router.register('notifications', NotificationViewSet)
-router.register('rendezvous', RendezVousViewSet)
+router.register(r'clients', ClientViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
