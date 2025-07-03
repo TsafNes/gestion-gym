@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import './Dashboard.css'; // 💡 Assure-toi d’importer ton fichier CSS pour le style
+import './dashboard.css'; // 💡 Assure-toi d’importer ton fichier CSS pour le style
 
 function RendezVousList({ rendezVous }) {
   const [clientsMap, setClientsMap] = useState({});
