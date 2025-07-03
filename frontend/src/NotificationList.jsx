@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import './Dashboard.css'; // Assure-toi que ce fichier est bien importé
+import './dashboard.css'; // Assure-toi que ce fichier est bien importé
 
 function NotificationList() {
   const [notifications, setNotifications] = useState([]);
