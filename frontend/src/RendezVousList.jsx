@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import './Dashboard.css'; // 💡 Assure-toi d’importer ton fichier CSS pour le style
 
 function RendezVousList({ rendezVous }) {
   const [clientsMap, setClientsMap] = useState({});
@@ -26,20 +27,32 @@ function RendezVousList({ rendezVous }) {
   }, []);
 
   return (
-    <div>
+    <section className="section-card">
       <h2>📅 Rendez-vous</h2>
+
       {rendezVous.length === 0 ? (
         <p>Aucun rendez-vous disponible.</p>
       ) : (
-        <ul>
-          {rendezVous.map(rdv => (
-            <li key={rdv.id}>
-              {clientsMap[rdv.client] || `Client ID: ${rdv.client}`} — {new Date(rdv.date).toLocaleString()} — {rdv.objet}
-            </li>
-          ))}
-        </ul>
+        <table className="table-style">
+          <thead>
+            <tr>
+              <th>Client</th>
+              <th>Date</th>
+              <th>Objet</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rendezVous.map(rdv => (
+              <tr key={rdv.id}>
+                <td>{clientsMap[rdv.client] || `Client ID: ${rdv.client}`}</td>
+                <td>{new Date(rdv.date).toLocaleString()}</td>
+                <td>{rdv.objet}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       )}
-    </div>
+    </section>
   );
 }
 
