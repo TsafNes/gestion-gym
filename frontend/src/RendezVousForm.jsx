@@ -40,7 +40,7 @@ function RendezVousForm({ onSuccess }) {
       setClientId('');
       setDate('');
       setObjet('');
-      onSuccess();
+      if (onSuccess) onSuccess(); // ← déclenche le message de succès
     } catch (error) {
       console.error("Erreur lors de la création du rendez-vous :", error);
     }
