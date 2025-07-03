@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ClientForm from './ClientForm';
-import { ClientList } from './ClientList';
+import ClientList from './ClientList';
 import RendezVousList from './RendezVousList';
 import RendezVousForm from './RendezVousForm';
 import NotificationForm from './NotificationForm';
