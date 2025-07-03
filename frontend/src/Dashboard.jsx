@@ -1,3 +1,4 @@
+<img src="/logo.png" alt="Logo du gym" style={{ height: '60px', marginBottom: '1rem' }} />
 import './dashboard.css';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -128,7 +129,7 @@ function Dashboard() {
 
   return (
     <div className="dashboard">
-      <h1>🎉 Bienvenue dans le tableau de bord</h1>
+      <h1>🎉 Bienvenue dans le tableau de bord Gym Argente</h1>
       <p>Vous êtes connecté en tant que <strong>{user?.role}</strong>.</p>
 
       {message && <p style={{ color: 'green' }}>{message}</p>}
