@@ -23,19 +23,30 @@ export function ClientList({ refreshTrigger }) {
   }, [refreshTrigger]);
 
   return (
-    <div className="client-list">
+    <section>
       <h2>👥 Liste des clients</h2>
       {clients.length === 0 ? (
         <p>Aucun client trouvé.</p>
       ) : (
-        <ul>
-          {clients.map(client => (
-            <li key={client.id}>
-              {client.prenom} {client.nom} – {client.email}
-            </li>
-          ))}
-        </ul>
+        <table>
+          <thead>
+            <tr>
+              <th>Nom</th>
+              <th>Prénom</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            {clients.map(client => (
+              <tr key={client.id}>
+                <td>{client.nom}</td>
+                <td>{client.prenom}</td>
+                <td>{client.email}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       )}
-    </div>
+    </section>
   );
 }
