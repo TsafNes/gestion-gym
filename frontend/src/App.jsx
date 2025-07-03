@@ -1,4 +1,5 @@
 // src/App.jsx
+<img src="/logo.jpg" alt="Logo du gym" style={{ height: '60px', marginBottom: '1rem' }} />
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './App.css'
